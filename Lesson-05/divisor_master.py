@@ -61,7 +61,57 @@ def test_2():
         print('Test #2 is failed')
 
 
+# Тест №3 - Проверка делителей числа
+
+
+def test_3():
+    dct_in = {'4': [1, 2, 4], '50': [1, 2, 5, 10, 25, 50], '100': [1, 2, 4, 5, 10, 20, 25, 50, 100]}
+    dct_out = {}
+    for key in dct_in.keys():
+        lst_out = get_divisors(int(key))
+        dct_out[key] = lst_out
+    if dct_in == dct_out:
+        print('Test #3 OK')
+    else:
+        print('Test #3 is failed')
+
+# Тест №4 - Проверка максимального делителя числа (Истинные значения)
+
+
+def test_4():
+    dct_in = {'100': 5, '666': 37, '2800': 7}
+    dct_out = {}
+    for key in dct_in.keys():
+        num_out = get_max_prime(int(key))
+        dct_out[key] = num_out
+    if dct_in == dct_out:
+        print('Test #4 OK')
+    else:
+        print('Test #4 is failed')
+
+
+# Тест №5 - Проверка максимального делителя числа, используя
+#  натуральные числа, у которых максимальный делитель совпадает с самим числом.
+
+
+def test_5():
+    lst_in = [7, 37, 997]
+    lst_out = []
+    for i in range(len(lst_in)):
+        num_out = get_max_prime(lst_in[i])
+        if num_out == lst_in[i]:
+            lst_out.append(num_out)
+    if lst_in == lst_out:
+        print('Test #5 OK')
+    else:
+        print('Test #5 is failed')
+
+
 test_1()
 test_2()
+test_3()
+test_4()
+test_5()
+
 
 
