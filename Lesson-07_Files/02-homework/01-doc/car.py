@@ -1,30 +1,31 @@
 import datetime
+import csv
+from docxtpl import DocxTemplate
 
 
-from docx.shared import Cm
-from docxtpl import DocxTemplate, InlineImage
+data_lst = []
+
+with open('data.csv', encoding='utf-8') as f:
+    reader = csv.reader(f, delimiter=',')
+    for row in reader:
+        data_lst.append(row)
+headers_lst = data_lst[0]
+vals_lst = data_lst[1]
+
+data_obj = {}
+for i in range(0, len(headers_lst)):
+    data_obj[headers_lst[i]] = vals_lst[i]
 
 
-def get_context(car_list):
-    return {
-        'brand': car_list[0],
-        'model': car_list[1],
-        'consumption': car_list[2],
-        'price': car_list[3],
-    }
-
-
-def from_template(car_list, template):
+def from_template(data, template):
     template = DocxTemplate(template)
-    context = get_context(car_list)
-    template.render(context)
-    template.save(car_list[0] + '_' + str(datetime.datetime.now().date()) + '_report.docx')
+    template.render(data)
+    template.save(str(datetime.datetime.now().date()) + '_report.docx')
 
 
-def generate_report(car_list):
+def generate_report(data):
     template = 'report.docx'
-    from_template(car_list, template)
+    from_template(data, template)
 
 
-car_list = ['Toyota', 'Camry', '8л/100км', '1 500 000 руб']
-generate_report(car_list)
+generate_report(data_obj)
